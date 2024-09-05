@@ -1,0 +1,60 @@
+class Estacionamento:
+    def __init__(self, preco_inicial, preco_por_hora):
+        self.preco_inicial = preco_inicial
+        self.preco_por_hora = preco_por_hora
+        self.veiculos = []
+
+    def adicionar_veiculo(self, placa):
+        # Adiciona a placa à lista de veículos
+        self.veiculos.append(placa)
+        print(f"Veículo com placa {placa} adicionado.")
+
+    def remover_veiculo(self, placa):
+        if placa in self.veiculos:
+            # Remove a placa da lista de veículos
+            self.veiculos.remove(placa)
+            horas = float(input("Quantas horas o veículo permaneceu estacionado? "))
+            valor = self.preco_inicial + (self.preco_por_hora * horas)
+            print(f"O valor a ser pago é: R${valor:.2f}")
+        else:
+            print("Veículo não encontrado no estacionamento.")
+
+    def listar_veiculos(self):
+        if self.veiculos:
+            print("Veículos estacionados:")
+            for veiculo in self.veiculos:
+                print(veiculo)
+        else:
+            print("Não há veículos estacionados.")
+
+def menu():
+    # Configurações iniciais do estacionamento
+    preco_inicial = float(input("Digite o preço inicial: "))
+    preco_por_hora = float(input("Digite o preço por hora: "))
+    estacionamento = Estacionamento(preco_inicial, preco_por_hora)
+
+    while True:
+        print("\nMenu:")
+        print("1. Cadastrar veículo")
+        print("2. Remover veículo")
+        print("3. Listar veículos")
+        print("4. Encerrar")
+
+        opcao = input("Escolha uma opção: ")
+
+        if opcao == '1':
+            placa = input("Digite a placa do veículo: ")
+            estacionamento.adicionar_veiculo(placa)
+        elif opcao == '2':
+            placa = input("Digite a placa do veículo para remoção: ")
+            estacionamento.remover_veiculo(placa)
+        elif opcao == '3':
+            estacionamento.listar_veiculos()
+        elif opcao == '4':
+            print("Encerrando o programa.")
+            break
+        else:
+            print("Opção inválida. Tente novamente.")
+
+# Executa o menu
+menu()
